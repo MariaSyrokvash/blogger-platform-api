@@ -20,9 +20,11 @@ export const blogInputModelValidator = [
     .withMessage(ERROR_MESSAGES.BLOG_DESCRIPTION),
 
   body('websiteUrl')
-    .isString().withMessage(ERROR_MESSAGES.TYPE_STRING)
+    .isString()
+    .withMessage(ERROR_MESSAGES.TYPE_STRING)
     .trim()
     .isLength({ min: 1, max: BLOGS_VALIDATION_LIMITS.WEBSITE_URL_MAX })
+    .withMessage(ERROR_MESSAGES.BLOG_WEBSITE_URL)
     .matches(BLOGS_VALIDATION_LIMITS.WEBSITE_URL_PATTERN)
     .withMessage(ERROR_MESSAGES.BLOG_WEBSITE_URL)
 ];
@@ -37,14 +39,14 @@ export const blogIdValidationMiddleware = [
 ];
 
 // POST
-export const createVideoValidationMiddleware = [
+export const createBlogValidationMiddleware = [
   ...blogInputModelValidator, // Разворачиваем цепочку body()
   inputValidationMiddleware
 ];
 
 
 // PUT
-export const updateVideoValidationMiddleware = [
+export const updateBlogValidationMiddleware = [
   idValidator,
   ...blogInputModelValidator, // Разворачиваем цепочку body()
   inputValidationMiddleware
