@@ -1,5 +1,5 @@
 {
-  "name": "hw_01",
+  "name": "sprint-01_hw-02",
   "packageManager": "yarn@4.5.2",
   "scripts": {
     "watch": "tsc -w",

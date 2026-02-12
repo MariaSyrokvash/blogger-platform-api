@@ -7,7 +7,7 @@ export const inputValidationMiddleware = (req: Request, res: Response, next: Nex
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    const errorsArray = errors.array();
+    const errorsArray = errors.array({ onlyFirstError: true});
 
     const errorsMessages = errorsArray.map((error) => {
       // Сужаем тип через проверку поля 'type'
