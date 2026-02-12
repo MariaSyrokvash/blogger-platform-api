@@ -15,6 +15,8 @@ export function deleteBlogHandler(req: TypedRequestParams<URIParamsBlogModel>, r
     return;
   }
 
-  blogsRepository.delete(id);
-  res.sendStatus(HttpStatus.NoContent_204);
+  const isDeleted = blogsRepository.delete(id);
+  isDeleted
+    ? res.sendStatus(HttpStatus.NoContent_204)
+    : res.sendStatus(HttpStatus.NotFound_404);
 }

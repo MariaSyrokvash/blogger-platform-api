@@ -20,8 +20,8 @@ export const APP_CONFIG = {
       BY_ID: '/:id',
     },
     TEST: {
-      BASE:  '/testing',
-      DB:  '/all-data'
+      BASE: '/api/testing',
+      DB: '/all-data'
     }
   },
 };

@@ -2,45 +2,47 @@ import {db} from "../../../db";
 import {OutputBlogType} from "../../../core/types/blogs";
 import {BlogInputModel} from "../models/CreateInputModel";
 
+const dbBlogs = db.blogs;
+
 
 export const blogsRepository = {
   findAll(): OutputBlogType[] {
-    return db.blogs;
+    return dbBlogs;
   },
 
   findById(id: string): OutputBlogType | null {
-    return db.blogs.find((d) => d.id === id) ?? null; // Если результат поиска равно null или undefined, то вернем null.
+    return dbBlogs.find((d) => d.id === id) ?? null; // Если результат поиска равно null или undefined, то вернем null.
   },
 
 
   create(newBlog: OutputBlogType): OutputBlogType {
-    db.blogs.push(newBlog);
+    dbBlogs.push(newBlog);
 
     return newBlog;
   },
 
-  update(id: string, updatedBlog: BlogInputModel): void  {
-    const blog = db.blogs.find((d) => d.id === id);
+  update(id: string, updatedBlog: BlogInputModel): boolean  {
+    const blog = dbBlogs.find((d) => d.id === id);
 
     if (!blog) {
-      throw new Error('Blog not exist');
+      return false;
     }
 
     blog.name = updatedBlog.name;
     blog.description = updatedBlog.description;
     blog.websiteUrl = updatedBlog.websiteUrl;
 
-    return;
+    return true;
   },
 
   delete(id: string) {
-    const blogIndex = db.blogs.findIndex((d) => d.id === id);
+    const blogIndex = dbBlogs.findIndex((d) => d.id === id);
 
     if (blogIndex === -1) {
-      throw new Error('Blog not exist');
+      return false;
     }
 
-    db.blogs.splice(blogIndex, 1);
-    return;
+    dbBlogs.splice(blogIndex, 1);
+    return true;
   }
 };

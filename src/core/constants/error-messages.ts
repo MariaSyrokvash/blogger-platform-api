@@ -1,8 +1,9 @@
-import {BLOGS_VALIDATION_LIMITS} from "../../features/blogs/constants/validation";
+import { BLOGS_VALIDATION_LIMITS } from "../../features/blogs/constants/validation";
+import { POSTS_VALIDATION_LIMITS } from "../../features/posts/constants/validation";
 
 export const ERROR_MESSAGES = {
   // Common
-  ID_MUST_BE_STRING: 'ID must be a string', // Добавь это для h02
+  ID_MUST_BE_STRING: 'ID must be a string',
   TYPE_STRING: 'Value must be a string',
   REQUIRED: 'Value is required',
 
@@ -10,4 +11,10 @@ export const ERROR_MESSAGES = {
   BLOG_NAME: `Name is required and should be max ${BLOGS_VALIDATION_LIMITS.NAME_MAX} characters`,
   BLOG_DESCRIPTION: `Description is required and should be max ${BLOGS_VALIDATION_LIMITS.DESCRIPTION_MAX} characters`,
   BLOG_WEBSITE_URL: `WebsiteUrl is required, max ${BLOGS_VALIDATION_LIMITS.WEBSITE_URL_MAX} characters and must match HTTPS pattern`,
+
+  // Posts
+  POST_TITLE: `Title is required and should be max ${POSTS_VALIDATION_LIMITS.TITLE_MAX} characters`, //
+  POST_SHORT_DESCRIPTION: `Short description is required and should be max ${POSTS_VALIDATION_LIMITS.SHORT_DESCRIPTION_MAX} characters`, //
+  POST_CONTENT: `Content is required and should be max ${POSTS_VALIDATION_LIMITS.CONTENT_MAX} characters`, //
+  POST_BLOG_ID: 'BlogId is required, must be a string, and must belong to an existing blog', //
 } as const;

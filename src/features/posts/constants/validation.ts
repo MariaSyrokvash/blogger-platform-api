@@ -1,0 +1,5 @@
+export const POSTS_VALIDATION_LIMITS = {
+  TITLE_MAX: 30,
+  SHORT_DESCRIPTION_MAX: 100,
+  CONTENT_MAX: 1000,
+} as const;

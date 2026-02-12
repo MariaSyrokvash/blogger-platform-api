@@ -3,13 +3,13 @@ import {OutputPostType} from "../../core/types/posts";
 
 export const blogMocks: OutputBlogType[] = [
   {
-    id: "1",
+    id: "blog-1",
     name: "IT-Incubator",
     description: "Programming and education blog",
     websiteUrl: "https://it-incubator.io"
   },
   {
-    id: "2",
+    id: "blog-2",
     name: "Backend News",
     description: "All about Node.js and Express",
     websiteUrl: "https://backend-news.com"

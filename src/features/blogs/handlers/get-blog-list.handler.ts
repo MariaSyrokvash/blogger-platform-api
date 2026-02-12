@@ -5,6 +5,7 @@ import {getViewBlogModel} from "../../../core/utils/view-model-mappers";
 
 export function getBlogListHandler(req: Request, res: Response<BlogViewModel[]>) {
   const blogs = blogsRepository.findAll();
+  console.log(blogs, 'blogs')
   const mappedBlogs: BlogViewModel[] = blogs.map(getViewBlogModel);
   res.send(mappedBlogs);
 }

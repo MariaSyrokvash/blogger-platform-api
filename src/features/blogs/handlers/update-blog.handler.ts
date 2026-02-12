@@ -14,6 +14,8 @@ export function updateBlogHandler(req: TypedRequestParamsBody< URIParamsBlogMode
     return;
   }
 
-  blogsRepository.update(id, req.body);
-  res.sendStatus(HttpStatus.NoContent_204);
+  const isUpdated = blogsRepository.update(id, req.body);
+  isUpdated
+    ? res.sendStatus(HttpStatus.NoContent_204)
+    : res.sendStatus(HttpStatus.NotFound_404);
 }
