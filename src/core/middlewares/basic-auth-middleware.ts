@@ -24,7 +24,10 @@ export const basicAuthMiddleware = (req: Request, res: Response, next: NextFunct
     return;
   }
 
-  const [login, password] = decoded.split(BASIC_AUTH_CREDENTIALS_SEPARATOR, BASIC_AUTH_SPLIT_PARTS_LIMIT);
+  const [login, password] = decoded.split(
+    BASIC_AUTH_CREDENTIALS_SEPARATOR,
+    BASIC_AUTH_SPLIT_PARTS_LIMIT
+  );
 
   if (login !== APP_CONFIG.AUTH.BASIC.LOGIN || password !== APP_CONFIG.AUTH.BASIC.PASSWORD) {
     res.sendStatus(HttpStatus.Unauthorized_401);

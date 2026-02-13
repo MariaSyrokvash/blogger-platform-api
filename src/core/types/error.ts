@@ -4,5 +4,5 @@ export type ValidationErrorType = {
 };
 
 export type ValidationErrorDto = {
-  errorMessages: ValidationErrorType[]
+  errorMessages: ValidationErrorType[];
 };

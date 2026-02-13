@@ -1,7 +1,7 @@
-import {ValidationError} from "express-validator";
+import { ValidationError } from 'express-validator';
 
 export const createErrorMessages = (
-  errors: ValidationError[],
+  errors: ValidationError[]
 ): { errorMessages: ValidationError[] } => {
   return { errorMessages: errors };
 };

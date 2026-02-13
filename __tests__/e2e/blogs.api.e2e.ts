@@ -3,26 +3,22 @@ import { app } from '../../src/app';
 import { APP_CONFIG } from '../../src/config';
 import { HttpStatus } from '../../src/core/constants/statuses';
 import { generateBasicAuthToken } from '../utils/auth';
-import { blogsTestManager } from "../utils/manager";
-import { blogsTestData } from "../utils/data";
+import { blogsTestManager } from '../utils/manager';
+import { blogsTestData } from '../utils/data';
 
 describe('Blogs API', () => {
   const adminToken = generateBasicAuthToken();
 
   beforeEach(async () => {
-    await request(app)
-      .delete(APP_CONFIG.PATH.TEST.BASE + APP_CONFIG.PATH.TEST.DB);
+    await request(app).delete(APP_CONFIG.PATH.TEST.BASE + APP_CONFIG.PATH.TEST.DB);
   });
 
   // ===========================================================================
   // GROUP: GET
   // ===========================================================================
   describe('GET Requests', () => {
-
     it('returns an empty array if no blogs exist', async () => {
-      await request(app)
-        .get(APP_CONFIG.PATH.BLOGS.BASE)
-        .expect(HttpStatus.Ok_200, []);
+      await request(app).get(APP_CONFIG.PATH.BLOGS.BASE).expect(HttpStatus.Ok_200, []);
     });
 
     it('should return 200 and a blog by its ID', async () => {
@@ -49,7 +45,6 @@ describe('Blogs API', () => {
   // GROUP: POST
   // ===========================================================================
   describe('POST Requests', () => {
-
     it('should NOT create blog without authorization', async () => {
       await request(app)
         .post(APP_CONFIG.PATH.BLOGS.BASE)
@@ -62,7 +57,7 @@ describe('Blogs API', () => {
 
       expect(createdBlog).toEqual({
         id: expect.any(String),
-        ...blogsTestData.valid
+        ...blogsTestData.valid,
       });
     });
 
@@ -79,9 +74,14 @@ describe('Blogs API', () => {
     it('should check onlyFirstError for websiteUrl', async () => {
       // Combined case: too long + wrong pattern
       const websiteUrlTooLong = blogsTestData.invalid.websiteUrl.tooLong;
-      const { response } = await blogsTestManager.createBlog(websiteUrlTooLong, HttpStatus.BadRequest_400);
+      const { response } = await blogsTestManager.createBlog(
+        websiteUrlTooLong,
+        HttpStatus.BadRequest_400
+      );
 
-      const websiteErrors = response.body.errorsMessages.filter((e: any) => e.field === 'websiteUrl');
+      const websiteErrors = response.body.errorsMessages.filter(
+        (e: any) => e.field === 'websiteUrl'
+      );
       // If onlyFirstError works, length should be 1
       expect(websiteErrors).toHaveLength(1);
     });
@@ -113,7 +113,7 @@ describe('Blogs API', () => {
       const updateData = {
         name: 'Updated Name',
         description: 'Updated Description',
-        websiteUrl: 'https://new-link.com'
+        websiteUrl: 'https://new-link.com',
       };
 
       // 2. Perform the update
@@ -130,7 +130,7 @@ describe('Blogs API', () => {
 
       expect(getRes.body).toEqual({
         id: createdBlog.id,
-        ...updateData
+        ...updateData,
       });
     });
 
@@ -164,7 +164,6 @@ describe('Blogs API', () => {
 
       expect(res.body.errorsMessages[0].field).toBe('websiteUrl');
     });
-
   });
 
   // ===========================================================================
@@ -198,16 +197,14 @@ describe('Blogs API', () => {
         .get(`${APP_CONFIG.PATH.BLOGS.BASE}/${createdBlog.id}`)
         .expect(HttpStatus.NotFound_404);
 
-       await request(app)
-        .get(APP_CONFIG.PATH.BLOGS.BASE)
-        .expect(HttpStatus.Ok_200, []);
+      await request(app).get(APP_CONFIG.PATH.BLOGS.BASE).expect(HttpStatus.Ok_200, []);
     });
 
     it('should only delete the targeted blog (isolation check)', async () => {
       const { createdBlog: blog1 } = await blogsTestManager.createBlog(blogsTestData.valid);
       const { createdBlog: blog2 } = await blogsTestManager.createBlog({
         ...blogsTestData.valid,
-        name: 'Second Blog'
+        name: 'Second Blog',
       });
 
       // 2. Delete only the first blog

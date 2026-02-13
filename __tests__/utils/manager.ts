@@ -1,16 +1,15 @@
 import request from 'supertest';
-import {app} from '../../src/app';
-import {APP_CONFIG} from '../../src/config';
-import {BlogInputModel} from '../../src/features/blogs/models/CreateInputModel';
-import {HttpStatus} from '../../src/core/constants/statuses';
-import {generateBasicAuthToken} from "./auth";
-import {BlogViewModel} from "../../src/features/blogs/models/BlogViewModel";
-import {postsTestData} from "./data";
-
+import { app } from '../../src/app';
+import { APP_CONFIG } from '../../src/config';
+import { BlogInputModel } from '../../src/features/blogs/models/CreateInputModel';
+import { HttpStatus } from '../../src/core/constants/statuses';
+import { generateBasicAuthToken } from './auth';
+import { postsTestData } from './data';
+import { getViewBlogModel, getViewPostModel } from '../../src/core/utils/view-model-mappers';
 
 export const blogsTestManager = {
   async createBlog(data: BlogInputModel, expectedStatusCode: number = HttpStatus.Created_201) {
-    const token = generateBasicAuthToken()
+    const token = generateBasicAuthToken();
 
     const response = await request(app)
       .post(APP_CONFIG.PATH.BLOGS.BASE)
@@ -20,9 +19,9 @@ export const blogsTestManager = {
 
     return {
       response,
-      createdBlog: response.body as BlogViewModel,
+      createdBlog: getViewBlogModel(response.body),
     };
-  }
+  },
 };
 
 export const postsTestManager = {
@@ -38,7 +37,7 @@ export const postsTestManager = {
 
     return {
       response,
-      createdPost: response.body
+      createdPost: getViewPostModel(response.body),
     };
-  }
+  },
 };

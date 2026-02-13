@@ -1,4 +1,4 @@
-import {APP_CONFIG} from "../../src/config";
+import { APP_CONFIG } from '../../src/config';
 
 export function generateBasicAuthToken() {
   const credentials = `${APP_CONFIG.AUTH.BASIC.LOGIN}:${APP_CONFIG.AUTH.BASIC.PASSWORD}`;

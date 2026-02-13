@@ -1,27 +1,26 @@
 import { validationResult } from 'express-validator';
-import { NextFunction, Request, Response, } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { HttpStatus } from '../constants/statuses';
-
 
 export const inputValidationMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    const errorsArray = errors.array({ onlyFirstError: true});
+    const errorsArray = errors.array({ onlyFirstError: true });
 
     const errorsMessages = errorsArray.map((error) => {
       // Сужаем тип через проверку поля 'type'
       if (error.type === 'field') {
         return {
           message: error.msg,
-          field: error.path // Теперь path доступен без any
+          field: error.path, // Теперь path доступен без any
         };
       }
 
       // Для всех остальных типов ошибок (редкие случаи)
       return {
         message: error.msg,
-        field: 'unknown'
+        field: 'unknown',
       };
     });
 

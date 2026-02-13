@@ -1,5 +1,5 @@
-import { BLOGS_VALIDATION_LIMITS } from "../../features/blogs/constants/validation";
-import { POSTS_VALIDATION_LIMITS } from "../../features/posts/constants/validation";
+import { BLOGS_VALIDATION_LIMITS } from '../../features/blogs/constants/validation';
+import { POSTS_VALIDATION_LIMITS } from '../../features/posts/constants/validation';
 
 export const ERROR_MESSAGES = {
   // Common
